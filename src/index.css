@@ -1,3 +1,81 @@
-.mainApp{
-    background-color: aquamarine;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html{scrollbar-color: #F59E0B rgba(157, 157, 154, 1);
+scrollbar-width: thin;
 }
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(157, 157, 154, 1);
+    border-radius: 5rem;
+    transition: all 0.15s ease-in-out;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    
+    background:#F59E0B;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    background: rgb(241, 241, 239);
+  }
+ 
+@keyframes   messageLoadingAnim {
+        0%, 100% {
+          transform: translateY(-70%);
+          animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+        }
+        50% {
+          transform: translateY(0);
+          animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+        }
+      }
+.messageLoadingAnimation{
+    animation: messageLoadingAnim 1s infinite;
+}
+
+.messageLoadingAnimation-200{
+    animation: messageLoadingAnim 1s infinite 200ms;
+}
+.messageLoadingAnimation-400{
+    animation: messageLoadingAnim 1s infinite 400ms;
+}
+
+.owner:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid 
+    #FDE68A;
+    border-right: 10px solid transparent;
+    border-top: 10px solid 
+    #FDE68A;
+    border-bottom: 10px solid transparent;
+    /* border-top-left-radius: 50%; */
+    border-top-right-radius: 50%;
+    right: -15px;
+    top: 0px;
+    z-index: 1;
+  }
+
+  .peer:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid transparent;
+    border-right: 10px solid #E5E7EB;
+    border-top: 10px solid #E5E7EB;
+    border-bottom: 10px solid transparent;
+    border-top-left-radius: 50%;
+    /* border-top-right-radius: 50%; */
+    left: -15px;
+    top: 0px;
+  }
+
+
+  

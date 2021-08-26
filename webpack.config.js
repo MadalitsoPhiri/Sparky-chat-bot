@@ -2,14 +2,15 @@ const path = require('path')
 const webpack = require('webpack')
 const bundleOutputDir = './dist'
 const libraryName = 'sparky-widget'
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); 
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 
 
 
-module.exports = (env) => {
+
+module.exports = (env, argv) => {
     const isDevBuild = !(env && env.prod);
-    var plugins = [new webpack.SourceMapDevToolPlugin()], outputFile;
+    var plugins = [new webpack.SourceMapDevToolPlugin(),], outputFile;
 
     if (!isDevBuild) {
       plugins.push(new UglifyJsPlugin());
@@ -33,10 +34,11 @@ module.exports = (env) => {
         },
         compress: true,
         port: 9000,
+        hot: true,
       },
       module: {
         rules: [{ test: /\.(js|jsx)$/,exclude:/(node_modules)/, loader: 'babel-loader' }, { test: /\.html$/i, use: 'html-loader' },
-        { test: /\.css$/i, use: ['style-loader', 'css-loader' + (isDevBuild ? '' : '?minimize')]},],
+        { test: /\.css$/i, use: ['style-loader', 'css-loader' + (isDevBuild ? '' : '?minimize'),'postcss-loader']},],
       },
       plugins:plugins
 };

@@ -2,7 +2,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App'
-import './index.css'; 
+import './index.css';
+import {MemoryRouter} from 'react-router-dom' 
+// import {socket} from './socket'
 
 
 
@@ -18,10 +20,7 @@ let head = document.querySelector('head')
 let styleTag = document.createElement('style')
 styleTag.innerHTML = `
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-.appContainer{
-    background-color: rgb(224, 231, 231);
-    flex:1;
-    }
+
     #sparkyChatbot_dialog{
      position: fixed;   
      width:320px;
@@ -29,28 +28,12 @@ styleTag.innerHTML = `
      right:1rem;
      top:5%;
      bottom: 5%;
-     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-     border-radius:1rem;
      transition: transform 0.3s ease-in-out;
-     display: flex;
-     flex-direction: column;
-
     }
     .sparkyChatbot_chatbotButton{
      position: fixed;
      right:1rem;
      bottom:1rem;
-     background-color:  #F59E0B;
-     width: 2rem;
-     height: 2rem;
-     border:none;
-     border-radius: 50%;
-     padding:0.7rem;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     cursor: pointer;
-     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
      transition: transform 0.3s ease-in-out;
     
 
@@ -144,6 +127,8 @@ const registerUiEvents = ()=>{
           chatbotButton.classList.remove('animate-out')
           chatbotDialog.classList.add('dialog-hidden')
         })
+
+       
 }
 
 const start = () => {
@@ -162,24 +147,25 @@ const start = () => {
 let body = document.querySelector('body')
 let dialog = document.createElement('div')
 dialog.id = "sparkyChatbot_dialog"
-dialog.classList.add("sparkyChatbot_chatbotDialog","dialog-hidden")
+dialog.classList.add("sparkyChatbot_chatbotDialog","dialog-hidden","shadow-xl","flex","flex-col","rounded-3xl","border")
 dialog.innerHTML = `
-<div class="sparkyChatbot_chatbotHeader">
+<div class="bg-white py-2 px-4 rounded-t-2xl flex flex-row justify-between">
            
-<svg class="sparkyChatbot_headerLogo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-<p class="sparkyChatbot_HeaderText">Lets chat!</p>
-<svg id="sparkyChatbot_closeButton" class="sparkyChatbot_closeButton" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+<svg class="w-8 h-8 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path></svg>
+<p class="text-yellow-500 text-lg font-bold">Sparky</p>
+<svg id="sparkyChatbot_closeButton" class="w-8 h-8 text-yellow-500 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
 
 </div>
-<div id="sparkyChatbot_entry" class="appContainer"></div>
-<div class="sparkyChatbot_footer"><p class="sparkyChatbot_footer_text">powered by <span style="color:#F59E0B">sparky</span></p></div>      
+
+<div id="sparkyChatbot_entry" class="flex-1 w-80 overflow-y-auto"></div>
+<div class="p-2 flex flex-row justify-center items-center flex-shrink-0 "><p class="sparkyChatbot_footer_text">powered by <span style="color:#F59E0B">sparky</span></p></div>      
 `
 
 let button = document.createElement('div')
 button.id = "sparkyChatbot_chatbotButton"
-button.classList.add("sparkyChatbot_chatbotButton")
+button.classList.add("sparkyChatbot_chatbotButton","p-4","bg-yellow-500","rounded-full")
 button.innerHTML = `
-<svg class="sparkyChatbot_buttonLogo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+<svg class="sparkyChatbot_buttonLogo" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path></svg>
 `
 
 
@@ -201,8 +187,7 @@ body.appendChild(dialog)
 
 
 registerUiEvents()
-
-ReactDOM.render(<App />,document.getElementById('sparkyChatbot_entry'))
+ReactDOM.render(<MemoryRouter  initialIndex={1}><App /></MemoryRouter>,document.getElementById('sparkyChatbot_entry'))
 
   }
   
