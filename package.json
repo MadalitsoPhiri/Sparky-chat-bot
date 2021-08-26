@@ -6,7 +6,8 @@
   "scripts": {
     "start": " webpack-dev-server --open --mode development",
     "build": "webpack --env prod",
-    "dev": "webpack"
+    "dev": "webpack",
+    "build:css": "postcss ./src/index.css -o ./src/output.css"
   },
   "keywords": [],
   "author": "",
@@ -22,11 +23,14 @@
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-react": "^7.14.5",
+    "autoprefixer": "^10.3.3",
     "babel-loader": "^8.2.2",
     "css-loader": "^6.2.0",
+    "cssnano": "^5.0.8",
     "html-loader": "^2.1.2",
     "mini-css-extract-plugin": "^2.2.0",
     "postcss": "^8.3.6",
+    "postcss-cli": "^8.3.1",
     "postcss-loader": "^6.1.1",
     "postcss-preset-env": "^6.7.0",
     "style-loader": "^3.2.1",

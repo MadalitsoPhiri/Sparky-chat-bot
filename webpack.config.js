@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const bundleOutputDir = './dist'
 const libraryName = 'sparky-widget'
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const { default: postcss } = require('postcss');
 
 
 
@@ -38,7 +39,7 @@ module.exports = (env, argv) => {
       },
       module: {
         rules: [{ test: /\.(js|jsx)$/,exclude:/(node_modules)/, loader: 'babel-loader' }, { test: /\.html$/i, use: 'html-loader' },
-        { test: /\.css$/i, use: ['style-loader', 'css-loader' + (isDevBuild ? '' : '?minimize'),'postcss-loader']},],
+        { test: /\.css$/i, use: ['style-loader', 'css-loader','postcss-loader']},],
       },
       plugins:plugins
 };
