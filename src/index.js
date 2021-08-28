@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 import App from './App'
 import './index.css';
 // import './output.css';
-import {MemoryRouter} from 'react-router-dom' 
+import {MemoryRouter} from 'react-router-dom'
+import {AuthProvider} from './components/AuthContext' 
 // import {socket} from './socket'
 
 
@@ -188,7 +189,9 @@ body.appendChild(dialog)
 
 
 registerUiEvents()
-ReactDOM.render(<MemoryRouter  initialIndex={1}><App /></MemoryRouter>,document.getElementById('sparkyChatbot_entry'))
+ReactDOM.render(<AuthProvider>
+   <App />
+</AuthProvider>,document.getElementById('sparkyChatbot_entry'))
 
   }
   
