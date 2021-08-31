@@ -3,7 +3,7 @@ import LoginForm from './components/LoginForm';
 import ChatInterface from './components/ChatInterface'
 import {Switch,Route,MemoryRouter} from "react-router-dom";
 import {socket} from './socket'
-import Options from './components/options';
+import Options from './components/Options';
 import WeedGennie from './components/WeedGennie';
 socket.on("connect", () => {
     console.log("connected"); // prints { x: "42", EIO: "4", transport: "polling" }

@@ -18,7 +18,7 @@ export default function LoginForm() {
 
     const login = (customerDetails)=>{
         setLoading(true)
-           fetch('http://localhost:5000/api/customers/create',{method:"POST",headers: {
+           fetch('http://sparkychatbot.ddns.net/api/customers/create',{method:"POST",headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },body:JSON.stringify(customerDetails)
