@@ -149,7 +149,7 @@ const start = () => {
 let body = document.querySelector('body')
 let dialog = document.createElement('div')
 dialog.id = "sparkyChatbot_dialog"
-dialog.classList.add("sparkyChatbot_chatbotDialog","dialog-hidden","shadow-xl","flex","flex-col","rounded-3xl","border")
+dialog.classList.add("sparkyChatbot_chatbotDialog","dialog-hidden","shadow-xl","flex","flex-col","rounded-3xl","border","z-50")
 dialog.innerHTML = `
 <div class="bg-white py-2 px-4 rounded-t-2xl flex flex-row justify-between">
            
@@ -159,13 +159,13 @@ dialog.innerHTML = `
 
 </div>
 
-<div id="sparkyChatbot_entry" class="flex-1 w-80 overflow-y-auto"></div>
-<div class="p-2 flex flex-row justify-center items-center flex-shrink-0 "><p class="sparkyChatbot_footer_text">powered by <span style="color:#F59E0B">sparky</span></p></div>      
+<div id="sparkyChatbot_entry" class="flex-1  overflow-y-auto"></div>
+<div class="bg-white p-2 flex flex-row justify-center items-center flex-shrink-0 rounded-b-2xl"><p class="sparkyChatbot_footer_text">powered by <span style="color:#F59E0B">sparky</span></p></div>      
 `
 
 let button = document.createElement('div')
 button.id = "sparkyChatbot_chatbotButton"
-button.classList.add("sparkyChatbot_chatbotButton","p-4","bg-yellow-500","rounded-full")
+button.classList.add("sparkyChatbot_chatbotButton","p-4","bg-yellow-500","rounded-full","z-50")
 button.innerHTML = `
 <svg class="sparkyChatbot_buttonLogo" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path></svg>
 `
