@@ -58,7 +58,7 @@ export default function Home() {
                     <div>
                       <p className="text-[#737376] text-sm font-light">Our usual reply time</p>
                       <div className="flex flex-row justify-start items-center">
-                        <svg className="w-4 h-4 text-[#602E9E]  mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <svg className="w-4 h-4 text-[#602E9E]  mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         <p className="text-black text-sm font-semibold">A few minutes</p>
                       </div>
                       

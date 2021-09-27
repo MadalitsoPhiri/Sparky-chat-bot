@@ -3,59 +3,74 @@ import { useHistory, useParams } from "react-router-dom";
 import { AnimatePresence, motion, } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from './Message';
-import { addNewConversation, createConversation, sendMessage } from '../store/slices/ConversationsSlice';
+import { v4 as uuid } from 'uuid';
+import { createConversation, sendMessage } from '../store/slices/ConversationsSlice';
 
 export default function ChatArea() {
     let history = useHistory();
-    let { index } = useParams()
-    const dispatch = useDispatch()
-    const conversations = useSelector(state => state.conversations)
-    const [messageInput,setMessageInput] = useState("")
-    const [conversationIndex,setConversationIndex] = useState(null)
-    const [tempCoversationIndex,setTempCoversationIndex] = useState(null)
+    let { index } = useParams();
+    const dispatch = useDispatch();
+    const conversations = useSelector(state => state.conversations);
+    const [messageInput,setMessageInput] = useState("");
+    const [conversationIndex,setConversationIndex] = useState(null);
+    const [tempCoversationIndex,setTempCoversationIndex] = useState(null);
 
-    const [sendButtonVisible,setSendButtonVisible] = useState(false)
-    const [toolbarExpanded,setToolbarExpanded] = useState(false)
-    const messagesEndRef = useRef()
+    const [sendButtonVisible,setSendButtonVisible] = useState(false);
+    const [toolbarExpanded,setToolbarExpanded] = useState(false);
+    const messagesEndRef = useRef();
    
   
     const handleBack = ()=>{
-        history.goBack()
+        history.goBack();
     }
     const handleSendMessage = ()=>{
         if(conversationIndex != null){
             const messageLength = conversations[conversationIndex].messages.length
             if(messageInput != ""){
-                dispatch(sendMessage({text:messageInput,sender:"client",email:"annonymous",name:"annonynous",date:new Date(),status:"sending",conversationIndex,messageIndex:messageLength}))
+                const id = conversations[conversationIndex].id
+                dispatch(sendMessage({text:messageInput,sender:"client",email:"annonymous",name:"annonynous",date:new Date(),status:"sending",conversationIndex,messageIndex:messageLength,conversationId:id,allowInput:true}))
                
               }
         }else{
             // create a new conversation
+            const uniqueID = uuid();
             const con = {
-                id:1237468734,
-                messages:[{text:messageInput,sender:"client",email:"annonymous",name:"annonynous",date:new Date(),status:"sending",conversationIndex:conversations.length,messageIndex:0}],
+                id:uniqueID,
+                allowInput:true,
+                messages:[{text:messageInput,sender:"client",email:"annonymous",name:"annonynous",date:new Date(),status:"sending",conversationIndex:conversations.length,messageIndex:0,conversationId:uniqueID,allowInput:true}],
                 sessionId:null,
-                lastmessage:{text:messageInput,sender:"client",email:"annonymous",name:"annonynous",date:new Date(),status:"sending",conversationIndex:conversations.length,messageIndex:0}
+                lastmessage:{text:messageInput,sender:"client",email:"annonymous",name:"annonynous",date:new Date(),status:"sending",conversationIndex:conversations.length,messageIndex:0,conversationId:uniqueID,allowInput:true}
             }
         
             //dispatch to store
-            setTempCoversationIndex(conversations.length)
-          dispatch(createConversation(con))
+          setTempCoversationIndex(conversations.length);
+          dispatch(createConversation(con));
 
 
 
         }
-         console.log(conversations) 
+         
     }
 
     const handleSendMessagefromOptions = (e)=>{
-       console.log(e.target.textContent)
-       setMessageQeue((prev)=>[...prev,{text:e.target.textContent,sender:"annonymous",email:""}])
+       const uniqueID = uuid();
+       const con = {
+        id:uniqueID,
+        allowInput:true,
+        messages:[{text:e.target.textContent,sender:"client",email:"annonymous",name:"annonynous",date:new Date(),status:"sending",conversationIndex:conversations.length,messageIndex:0,conversationId:uniqueID,allowInput:true}],
+        sessionId:null,
+        lastmessage:{text:e.target.textContent,sender:"client",email:"annonymous",name:"annonynous",date:new Date(),status:"sending",conversationIndex:conversations.length,messageIndex:0,conversationId:uniqueID,allowInput:true}
+    }
+
+    //dispatch to store
+    setTempCoversationIndex(conversations.length);
+    dispatch(createConversation(con));
+
     }
 
   
     const handleMessageInputChnage = (e)=>{
-        setMessageInput(e.target.value)
+        setMessageInput(e.target.value);
         if(e.target.value === ""){
           setSendButtonVisible(false)
         }else{
@@ -79,8 +94,8 @@ export default function ChatArea() {
 
     useEffect(()=>{
         if(index){
-            console.log("conversationId",index)
-            setConversationIndex(index)
+            console.log("conversationId",index);
+            setConversationIndex(index);
           }
      },[])
   
@@ -92,7 +107,7 @@ export default function ChatArea() {
                 <div className={`bg-[#602E9E] py-3 px-2 flex flex-row flex-shrink-0`}>
                     {/* back button */}
                     <div onClick={handleBack} className="px-3 py-6 flex justify-center items-center cursor-pointer h-0 hover:bg-[#0000002d]  rounded-lg">
-                    <svg class="w-[28px] h-[28px] text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    <svg className="w-[28px] h-[28px] text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path className="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
                     </div>
 
                    <div onClick={handleToolbarExpansion} className={`${!toolbarExpanded && "hover:bg-[#0000002d]"} rounded-lg px-2 cursor-pointer ml-2 `}>
@@ -114,7 +129,7 @@ export default function ChatArea() {
                             <motion.div className="ml-7" initial={{opacity:0}} animate={{opacity:1}} transition={{type:"tween"}}>
                                 <p className="text-white text-base font-light">Sparky</p>
                                 <div className="flex flex-row justify-start items-center">
-                                <svg className="w-4 h-4 text-gray-100 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <svg className="w-4 h-4 text-gray-100 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                 <p className="text-gray-100 text-sm font-light">A few minutes</p>
                                 </div>
                                 
@@ -135,7 +150,7 @@ export default function ChatArea() {
                     <div>
                       <p className="text-[#ffffffc7] text-sm font-light">Our usual reply time</p>
                       <div className="flex flex-row justify-start items-center">
-                        <svg className="w-4 h-4 text-white  mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <svg className="w-4 h-4 text-white  mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         <p className="text-white text-sm font-semibold">A few minutes</p>
                       </div>
                       
@@ -182,11 +197,22 @@ export default function ChatArea() {
 
                 </div>
             </div>
-            <motion.div initial={{y:"200"}} animate={{y:0}} transition={{type:"tween",duration:0.3,ease:"anticipate"}} className="flex flex-row w-full border-t border-gray-200 py-[18px] pl-7 pr-5 flex-shrink-0">
+            <AnimatePresence>
+            {conversationIndex !=null?conversations[conversationIndex].allowInput?
+                <motion.div initial={{y:300}} animate={{y:0}} transition={{type:"tween",duration:0.3,ease:"anticipate"}} exit={{y:"300"}} className="flex flex-row w-full border-t border-gray-200 py-[18px] pl-7 pr-5 flex-shrink-0">
                 <input value={messageInput} onChange={handleMessageInputChnage} className="flex-1 outline-none text-[13px] mr-4" type="text" placeholder="Send a message.."/>
-                <button className="flex-shrink-0 mr-2 rounded-full hover:bg-gray-100"><svg class="w-[20px] h-[20px]  text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg></button>
-                {sendButtonVisible && <button onClick={handleSendMessage} className="flex-shrink-0 rounded-full hover:bg-gray-100"><svg class="w-[20px] h-[20px] text-[#602E9E] transform rotate-90" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg></button>}
+                <button className="flex-shrink-0 mr-2 rounded-full hover:bg-gray-100"><svg className="w-[20px] h-[20px]  text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg></button>
+                {sendButtonVisible && <button onClick={handleSendMessage} className="flex-shrink-0 rounded-full hover:bg-gray-100"><svg className="w-[20px] h-[20px] text-[#602E9E] transform rotate-90" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg></button>}
             </motion.div>
+            :null:
+                <motion.div initial={{y:"200"}} animate={{y:0}} transition={{type:"tween",duration:0.3,ease:"anticipate"}} exit={{y:300}} className="flex flex-row w-full border-t border-gray-200 py-[18px] pl-7 pr-5 flex-shrink-0">
+                <input value={messageInput} onChange={handleMessageInputChnage} className="flex-1 outline-none text-[13px] mr-4" type="text" placeholder="Send a message.."/>
+                <button className="flex-shrink-0 mr-2 rounded-full hover:bg-gray-100"><svg className="w-[20px] h-[20px]  text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg></button>
+                {sendButtonVisible && <button onClick={handleSendMessage} className="flex-shrink-0 rounded-full hover:bg-gray-100"><svg className="w-[20px] h-[20px] text-[#602E9E] transform rotate-90" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg></button>}
+            </motion.div>}
+            </AnimatePresence>
+            
+            
         </div>
     )
 }
