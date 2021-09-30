@@ -24,7 +24,7 @@ export default function Message({msg}) {
 </motion.div>    :<motion.div initial={{y:300}} animate={{y:0}} transition={{type:"tween"}} className="w-full flex flex-col items-end mb-5"><p className="text-sm text-white px-4 py-4 bg-[#6c459c] rounded-md max-w-[90%] break-words mb-1">
         {msg.text}
 </p> 
-<p className="text-[13px] font-light text-gray-700">{msg.status === "sent" ? format(msg.date):msg.status}</p>   
+<p className="text-[13px] font-light text-gray-700">{msg.status === "sent" ? `${format(msg.date)} • ${msg.read === false? "not seen yet":"seen" }`:msg.status}</p>   
 </motion.div>    
     )
 }

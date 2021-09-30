@@ -28,8 +28,8 @@ export default function ChatArea() {
             const messageLength = conversations[conversationIndex].messages.length
             if(messageInput != ""){
                 const id = conversations[conversationIndex].id
-                dispatch(sendMessage({text:messageInput,sender:"client",email:"annonymous",name:"annonynous",date:new Date(),status:"sending",conversationIndex,messageIndex:messageLength,conversationId:id,allowInput:true}))
-               
+                dispatch(sendMessage({text:messageInput,sender:"client",client:{email:"annonymous",name:"annonymous"},date:new Date(),status:"sending",conversationIndex,messageIndex:messageLength,conversationId:id,allowInput:true,read:false}))
+
               }
         }else{
             // create a new conversation
@@ -37,9 +37,9 @@ export default function ChatArea() {
             const con = {
                 id:uniqueID,
                 allowInput:true,
-                messages:[{text:messageInput,sender:"client",email:"annonymous",name:"annonynous",date:new Date(),status:"sending",conversationIndex:conversations.length,messageIndex:0,conversationId:uniqueID,allowInput:true}],
+                messages:[{text:messageInput,sender:"client",client:{email:"annonymous",name:"annonynous"},date:new Date(),status:"sending",conversationIndex:conversations.length,messageIndex:0,conversationId:uniqueID,allowInput:true,read:false}],
                 sessionId:null,
-                lastmessage:{text:messageInput,sender:"client",email:"annonymous",name:"annonynous",date:new Date(),status:"sending",conversationIndex:conversations.length,messageIndex:0,conversationId:uniqueID,allowInput:true}
+                lastmessage:{text:messageInput,sender:"client",client:{email:"annonymous",name:"annonynous"},date:new Date(),status:"sending",conversationIndex:conversations.length,messageIndex:0,conversationId:uniqueID,allowInput:true,read:false}
             }
         
             //dispatch to store
@@ -57,9 +57,9 @@ export default function ChatArea() {
        const con = {
         id:uniqueID,
         allowInput:true,
-        messages:[{text:e.target.textContent,sender:"client",email:"annonymous",name:"annonynous",date:new Date(),status:"sending",conversationIndex:conversations.length,messageIndex:0,conversationId:uniqueID,allowInput:true}],
+        messages:[{text:e.target.textContent,sender:"client",client:{email:"annonymous",name:"annonynous"},date:new Date(),status:"sending",conversationIndex:conversations.length,messageIndex:0,conversationId:uniqueID,allowInput:true,read:false}],
         sessionId:null,
-        lastmessage:{text:e.target.textContent,sender:"client",email:"annonymous",name:"annonynous",date:new Date(),status:"sending",conversationIndex:conversations.length,messageIndex:0,conversationId:uniqueID,allowInput:true}
+        lastmessage:{text:e.target.textContent,sender:"client",client:{email:"annonymous",name:"annonynous"},date:new Date(),status:"sending",conversationIndex:conversations.length,messageIndex:0,conversationId:uniqueID,allowInput:true,read:false}
     }
 
     //dispatch to store

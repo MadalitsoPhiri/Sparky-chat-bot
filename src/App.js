@@ -29,7 +29,7 @@ export default function App() {
             dispatch(updateMessage(payload))
         })
 
-        socket.on("onNewMessage",(msg)=>{
+        socket.on("onAgentNewMessage",(msg)=>{
             dispatch(recieveNewMessage(msg))
         })
 
