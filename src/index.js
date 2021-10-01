@@ -17,7 +17,7 @@ const start = () => {
   
 let body = document.querySelector('body')
 let dialog = document.createElement('div')
-dialog.classList.add("z-[9999px]")
+dialog.classList.add("z-[99999]")
 dialog.id = "sparkyChatbot_dialog"
 body.appendChild(dialog)
 
