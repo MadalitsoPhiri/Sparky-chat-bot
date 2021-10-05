@@ -65,7 +65,7 @@ export default function App() {
 
 
 
-  <div className="fixed -bottom-0 right-0  w-full h-full  flex flex-col items-end  justify-end sm:p-5 sm:max-h-[850px] sm:min-h-[400px] overflow-y-hidden  z-50">
+  <div className="fixed -bottom-0 right-0  w-full h-full  flex flex-col items-end  justify-end sm:p-5 sm:max-h-[850px] sm:min-h-[400px] overflow-y-hidden">
   <AnimatePresence>
     {isOpen && <motion.div animate={{y:0,opacity:1}} initial={{y:50,opacity:0}} exit={{y:50,opacity:0}} transition={{type:"tween"}} className={`relative rounded-lg w-full h-full flex  bg-white flex-1 shadow-xl sm:mb-5  sm:w-96 overflow-y-hidden z-10 `}>
     <div onClick={handleOpen} className="p-2 rounded-lg fixed right-6 top-5 sm:hidden flex flex-col justify-center items-center cursor-pointer z-50"><div className="rounded-lg absolute bg-black opacity-30 w-full h-full"></div><svg className="w-6 h-6 text-white z-10" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg></div>
